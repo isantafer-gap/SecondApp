@@ -2,7 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+#require 'rspec/autorun'
 require 'capybara/rspec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -29,16 +29,10 @@ RSpec.configure do |config|
   require 'rspec/expectations'
   config.include RSpec::Matchers
 end
-RSpec::Matchers
-end
 
-
-Capybara.register_driver :chrome_sizes do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new 
-
+Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app,
-    :browser => :chrome,
-    :profile => profile,
-    :args => ["--window-size=1240,1400"]
+    browser: :chrome,
+    args: ["--window-size=1024,768"]
   )
 end

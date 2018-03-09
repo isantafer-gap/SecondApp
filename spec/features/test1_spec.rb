@@ -2,15 +2,16 @@ require 'spec_helper'
 
 feature "Test 1", :js => true do 
   
-  given (:hi) { 'Test' }
+  before(:all) do
+    page.driver.browser.manage.window.resize_to(1920,1080)
+  end
 
   scenario "As user click on search and type text" do
     visit('/')
-   # sleep(10)
     find(:id, 'et_top_search').click
-   #sleep(1)
-    fill_in('et_search_field', :with => hi)
-    sleep(30)
+   	input = find_field 's'
+	input.send_keys 'Test', :enter
+	expect(page).to have_content("Messaging Test")
+	puts "***Test Result: Messaging Test found on page***"
   end
 end
-
